@@ -97,18 +97,6 @@ body::before {
   z-index: 1;
 }
 
-.trip-scroll {
-  scroll-behavior: smooth;
-  scroll-padding-top: 4rem;
-  overscroll-behavior-y: contain;
-}
-
-@media (min-width: 640px) {
-  .trip-scroll {
-    scroll-padding-top: 4.5rem;
-  }
-}
-
 .day-section {
   contain: layout paint;
 }
@@ -317,10 +305,6 @@ body::before {
 @media (max-width: 767px) {
   .itinerary-grid {
     gap: 1.25rem;
-  }
-
-  .trip-scroll {
-    scroll-snap-type: y proximity;
   }
 }
 

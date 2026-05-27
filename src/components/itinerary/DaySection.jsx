@@ -5,7 +5,7 @@ import ImageWithFallback from '@/components/itinerary/ImageWithFallback'
 
 function DaySection({ day, index, rsvp }) {
   return (
-    <section className="day-section snap-start scroll-mt-16 bg-[#080a0f] sm:scroll-mt-[72px]">
+    <section className="day-section bg-[#080a0f]">
       <div className="relative min-h-screen overflow-hidden px-4 pb-12 pt-20 sm:px-6 sm:pb-14 sm:pt-24 lg:px-8">
         <ImageWithFallback
           src={day.heroImage}
