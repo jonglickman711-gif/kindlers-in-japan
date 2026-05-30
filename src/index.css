@@ -98,7 +98,8 @@ body::before {
 }
 
 .day-section {
-  contain: layout paint;
+  isolation: isolate;
+  overflow: clip;
 }
 
 .day-brief,
@@ -305,6 +306,16 @@ body::before {
 @media (max-width: 767px) {
   .itinerary-grid {
     gap: 1.25rem;
+  }
+
+  .day-section {
+    overflow: hidden;
+  }
+
+  .activity-card,
+  .option-row {
+    transform: translateZ(0);
+    backface-visibility: hidden;
   }
 }
 

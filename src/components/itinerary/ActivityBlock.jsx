@@ -19,11 +19,11 @@ function ActivityOption({ option, section, exclusiveOptionIds, rsvp, comments })
         </div>
         <div className="flex flex-col justify-between p-5 sm:p-6">
           <div>
-            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-              <h3 className="font-serif text-2xl font-semibold leading-tight text-white lg:text-[1.55rem]">
+            <div className="grid gap-3 xl:grid-cols-[minmax(0,1fr)_auto] xl:items-start">
+              <h3 className="min-w-0 text-wrap break-words font-serif text-2xl font-semibold leading-tight text-white lg:text-[1.55rem]">
                 {option.title}
               </h3>
-              <div className="shrink-0">
+              <div className="min-w-0 xl:justify-self-end">
                 <ActivityComments activity={option} comments={comments} />
               </div>
             </div>
@@ -34,13 +34,15 @@ function ActivityOption({ option, section, exclusiveOptionIds, rsvp, comments })
               </p>
             )}
           </div>
-          <RsvpBubbles
-            activityId={option.id}
-            exclusiveOptionIds={
-              option.rsvpMode === 'exclusiveGroup' ? exclusiveOptionIds : []
-            }
-            {...rsvp}
-          />
+          {option.rsvpMode !== 'none' && (
+            <RsvpBubbles
+              activityId={option.id}
+              exclusiveOptionIds={
+                option.rsvpMode === 'exclusiveGroup' ? exclusiveOptionIds : []
+              }
+              {...rsvp}
+            />
+          )}
         </div>
       </div>
     </div>

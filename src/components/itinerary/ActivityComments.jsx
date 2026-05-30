@@ -47,27 +47,27 @@ function ActivityComments({ activity, comments }) {
 
   return (
     <>
-      <div className="flex flex-wrap items-center gap-2">
+      <div className="flex max-w-full flex-wrap items-center gap-2">
         <button
           type="button"
           onClick={() => setIsOpen(true)}
           aria-label={`Open comments for ${activity.title}`}
-          className="inline-flex min-h-10 items-center gap-2 rounded-full border border-white/12 bg-black/25 px-3 py-2 text-xs font-medium text-white/68 transition duration-300 hover:border-amber-100/30 hover:bg-white/[0.08] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-200/70"
+          className="inline-flex min-h-10 max-w-full items-center gap-2 rounded-full border border-white/12 bg-black/25 px-3 py-2 text-xs font-medium text-white/68 transition duration-300 hover:border-amber-100/30 hover:bg-white/[0.08] hover:text-white focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-200/70 sm:px-3.5"
         >
-          <MessageCircle className="size-4 text-amber-100/72" />
-          <span>Add note</span>
+          <MessageCircle className="size-4 shrink-0 text-amber-100/72" />
+          <span className="truncate">Add note</span>
         </button>
         <button
           type="button"
           onClick={() => setIsOpen(true)}
           className={cn(
-            'min-h-10 rounded-full px-3 py-2 text-xs transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-200/70',
+            'min-h-10 max-w-full rounded-full px-3 py-2 text-xs transition duration-300 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-200/70 sm:px-3.5',
             activityComments.length > 0
               ? 'border border-amber-100/24 bg-amber-100/10 text-amber-50 hover:bg-amber-100/16'
               : 'border border-white/10 bg-white/[0.04] text-white/46 hover:text-white/70',
           )}
         >
-          {commentLabel}
+          <span className="block truncate">{commentLabel}</span>
         </button>
       </div>
 

@@ -10,8 +10,11 @@ export const travelers = [
   { id: 'maggot', name: 'Maggot', emoji: '🥟', effect: 'dumpling-bounce' },
 ]
 
-const img = (id) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1200&q=84`
+const img = (id) =>
+  id.startsWith('http') ? id : `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1200&q=84`
 const hero = (id) => `https://images.unsplash.com/${id}?auto=format&fit=crop&w=1800&q=86`
+const commons = (file) =>
+  `https://commons.wikimedia.org/wiki/Special:Redirect/file/${encodeURIComponent(file)}?width=1400`
 
 const option = ({ id, title, details, image, notes, rsvpMode = 'single' }) => ({
   id,
@@ -61,7 +64,7 @@ export const tripDays = [
             id: 'kyoto-913-midday-chopsticks',
             title: 'Chopstick-making activity',
             details: 'Hands-on craft session for a slower, indoor Kyoto arrival option.',
-            image: img('photo-1519730722595-a5ff788dea4d'),
+            image: commons('Chopsticks (PSF).jpg'),
             rsvpMode: 'exclusiveGroup',
           }),
         ],
@@ -156,7 +159,7 @@ export const tripDays = [
             title: 'Early Arashiyama Bamboo Grove and Tenryu-ji',
             details: 'Early bamboo walk followed by garden and temple time at Tenryu-ji.',
             notes: 'Start early enough to beat tour bus rhythm.',
-            image: img('photo-1522383225653-ed111181a951'),
+            image: commons('Arashiyama Bamboo Grove.jpg'),
           }),
         ],
       },
@@ -176,7 +179,7 @@ export const tripDays = [
             id: 'kyoto-915-midday-flex-kyoto',
             title: 'Kyoto shopping / flexible exploration / Nishiki Market',
             details: 'Stay in Kyoto for shopping, market grazing, and flexible neighborhood time.',
-            image: img('photo-1557872943-16a5ac26437e'),
+            image: commons('Inside versace store.jpg'),
             rsvpMode: 'exclusiveGroup',
           }),
         ],
@@ -321,7 +324,7 @@ export const tripDays = [
             id: 'tokyo-918-morning-toyosu',
             title: 'Early risers: Toyosu Market inner wholesale market around 5:00 AM',
             details: 'Optional very early wake-up to see the indoor wholesale market action before the main group starts.',
-            image: img('photo-1553621042-f6e147245754'),
+            image: commons('Toyosu fish market-4a.jpg'),
             rsvpMode: 'exclusiveGroup',
           }),
           option({
@@ -430,6 +433,7 @@ export const tripDays = [
             details: 'Airport transfers, luggage checks, and separate goodbye timing.',
             notes: 'Keep passports and souvenirs close.',
             image: img('photo-1436491865332-7a61a109cc05'),
+            rsvpMode: 'none',
           }),
         ],
       },
@@ -443,6 +447,7 @@ export const tripDays = [
             details: 'Staggered departures and final station or airport meals.',
             notes: 'Minimal planning, maximum calm.',
             image: img('photo-1521727857535-28d2047619b7'),
+            rsvpMode: 'none',
           }),
         ],
       },

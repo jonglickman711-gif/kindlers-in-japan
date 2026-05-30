@@ -3,6 +3,10 @@ import ActivityComments from '@/components/itinerary/ActivityComments'
 import { allActivities, travelers, tripDays } from '@/data/itinerary'
 import { cn } from '@/lib/utils'
 
+const travelerNames = Object.fromEntries(
+  travelers.map((traveler) => [traveler.id, traveler.name]),
+)
+
 function ScheduleView({ selectedTraveler, onSelectTraveler, rsvp, comments }) {
   const filteredActivities =
     selectedTraveler === 'all'
@@ -77,6 +81,13 @@ function ScheduleView({ selectedTraveler, onSelectTraveler, rsvp, comments }) {
               <div className="grid overflow-hidden border border-white/10 bg-white/[0.04] backdrop-blur">
                 {day.activities.map((activity) => {
                   const going = rsvp.getGoing(activity.id)
+                  const goingNames = going.map((travelerId) => travelerNames[travelerId] ?? travelerId)
+                  const goingLabel =
+                    activity.rsvpMode === 'none'
+                      ? 'No RSVP'
+                      : goingNames.length > 0
+                        ? goingNames.join(', ')
+                        : 'No one yet'
 
                   return (
                     <article
@@ -90,19 +101,29 @@ function ScheduleView({ selectedTraveler, onSelectTraveler, rsvp, comments }) {
                         </div>
                       </div>
                       <div>
-                        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
-                          <h3 className="font-serif text-2xl font-semibold leading-tight text-white">
+                        <div className="grid gap-3 xl:grid-cols-[minmax(0,1fr)_auto] xl:items-start">
+                          <h3 className="min-w-0 text-wrap break-words font-serif text-2xl font-semibold leading-tight text-white">
                             {activity.title}
                           </h3>
-                          <div className="shrink-0">
+                          <div className="min-w-0 xl:justify-self-end">
                             <ActivityComments activity={activity} comments={comments} />
                           </div>
                         </div>
                         <p className="mt-2 text-sm leading-6 text-white/64">{activity.details}</p>
                       </div>
-                      <div className="flex items-start gap-2 text-sm text-white/70 lg:justify-end">
+                      <div
+                        className="group/going relative flex items-start gap-2 text-sm text-white/70 lg:justify-end"
+                        title={goingLabel}
+                      >
                         <Users className="mt-0.5 size-4 text-amber-100/70" />
-                        <span>{going.length}/9 going</span>
+                        <span>
+                          {activity.rsvpMode === 'none' ? 'No RSVP' : `${going.length}/9 going`}
+                        </span>
+                        {activity.rsvpMode !== 'none' && (
+                          <div className="pointer-events-none absolute right-0 top-7 z-20 w-52 translate-y-1 border border-white/12 bg-[#0d1016]/96 p-3 text-xs leading-5 text-white/72 opacity-0 shadow-[0_18px_50px_rgba(0,0,0,0.35)] backdrop-blur transition duration-200 group-hover/going:translate-y-0 group-hover/going:opacity-100 group-focus-within/going:translate-y-0 group-focus-within/going:opacity-100">
+                            {goingLabel}
+                          </div>
+                        )}
                       </div>
                     </article>
                   )
