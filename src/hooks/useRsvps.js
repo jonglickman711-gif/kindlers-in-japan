@@ -43,6 +43,7 @@ export function useRsvps() {
     hasSupabaseConfig ? {} : readStoredRsvps(),
   )
   const [mode, setMode] = useState(hasSupabaseConfig ? 'syncing' : 'local')
+  const [realtimeStatus, setRealtimeStatus] = useState('idle')
 
   useEffect(() => {
     if (mode === 'local') {
@@ -95,10 +96,9 @@ export function useRsvps() {
       )
       .subscribe((status) => {
         console.info('[RSVP] Supabase realtime status:', status)
+        setRealtimeStatus(status)
         if (status === 'CHANNEL_ERROR' || status === 'TIMED_OUT') {
-          console.error('[RSVP] Supabase realtime unavailable; using localStorage fallback.')
-          setRsvps(readStoredRsvps())
-          setMode('local')
+          console.error('[RSVP] Supabase realtime unavailable. Fetch/upsert can still be shared if Supabase is active.')
         }
       })
 
@@ -111,6 +111,7 @@ export function useRsvps() {
   const api = useMemo(
     () => ({
       mode,
+      realtimeStatus,
       rsvps,
       getGoing(activityId) {
         return rsvps[activityId] ?? []
@@ -196,7 +197,7 @@ export function useRsvps() {
           })
       },
     }),
-    [mode, rsvps],
+    [mode, realtimeStatus, rsvps],
   )
 
   return api
