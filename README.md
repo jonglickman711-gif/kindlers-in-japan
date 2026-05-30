@@ -25,4 +25,11 @@ npm run preview
 
 ## RSVP Storage
 
-RSVP selections currently use `localStorage` for local testing. Supabase realtime persistence will be added next.
+RSVP selections use Supabase realtime when these Vite environment variables are configured:
+
+```bash
+VITE_SUPABASE_URL=your_supabase_project_url
+VITE_SUPABASE_ANON_KEY=your_supabase_anon_key
+```
+
+If Supabase env vars are missing or unavailable, the app falls back to `localStorage` for local testing.

@@ -4,8 +4,9 @@ import { cn } from '@/lib/utils'
 
 const tabs = ['Home', 'Trip', 'Schedule']
 
-function AppHeader({ activeTab, onTabChange }) {
+function AppHeader({ activeTab, onTabChange, rsvpMode }) {
   const [sways, setSways] = useState(0)
+  const isShared = rsvpMode === 'supabase'
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#090b0f]/82 text-white shadow-[0_14px_45px_rgba(0,0,0,0.26)] backdrop-blur-xl">
@@ -37,17 +38,27 @@ function AppHeader({ activeTab, onTabChange }) {
           ))}
         </div>
 
-        <motion.button
-          type="button"
-          aria-label="Sway lantern"
-          onClick={() => setSways((count) => count + 1)}
-          animate={{ rotate: sways ? [0, -5, 4, -2, 0] : 0 }}
-          transition={{ duration: 1.1, ease: 'easeInOut' }}
-          className="lantern-button relative grid size-10 place-items-center rounded-md border border-amber-200/20 bg-amber-200/8 text-lg shadow-[0_0_22px_rgba(245,158,11,0.1)] transition hover:bg-amber-200/12 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-200/70 sm:size-11 sm:text-xl"
-        >
-          <span className="absolute top-1 h-2 w-px bg-amber-100/45" />
-          <span className="drop-shadow-[0_0_12px_rgba(251,191,36,0.8)]">🏮</span>
-        </motion.button>
+        <div className="flex items-center gap-2">
+          <span className={cn(
+            'absolute right-4 top-[calc(100%+0.5rem)] rounded-full border px-2.5 py-1 text-[0.68rem] uppercase backdrop-blur lg:static',
+            isShared
+              ? 'border-emerald-200/20 bg-emerald-200/10 text-emerald-100/75'
+              : 'border-amber-200/16 bg-amber-200/8 text-amber-100/62',
+          )}>
+            {isShared ? 'Shared RSVP active' : 'Local mode only'}
+          </span>
+          <motion.button
+            type="button"
+            aria-label="Sway lantern"
+            onClick={() => setSways((count) => count + 1)}
+            animate={{ rotate: sways ? [0, -5, 4, -2, 0] : 0 }}
+            transition={{ duration: 1.1, ease: 'easeInOut' }}
+            className="lantern-button relative grid size-10 place-items-center rounded-md border border-amber-200/20 bg-amber-200/8 text-lg shadow-[0_0_22px_rgba(245,158,11,0.1)] transition hover:bg-amber-200/12 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-amber-200/70 sm:size-11 sm:text-xl"
+          >
+            <span className="absolute top-1 h-2 w-px bg-amber-100/45" />
+            <span className="drop-shadow-[0_0_12px_rgba(251,191,36,0.8)]">🏮</span>
+          </motion.button>
+        </div>
       </div>
     </header>
   )

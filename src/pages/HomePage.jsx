@@ -12,7 +12,7 @@ function HomePage() {
 
   return (
     <>
-      <AppHeader activeTab={activeTab} onTabChange={setActiveTab} />
+      <AppHeader activeTab={activeTab} onTabChange={setActiveTab} rsvpMode={rsvp.mode} />
       {activeTab === 'Home' && <HomeIntro onStart={setActiveTab} />}
       {activeTab === 'Trip' && (
         <TripView rsvp={rsvp} />
