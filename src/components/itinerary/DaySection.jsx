@@ -3,7 +3,7 @@ import { BedDouble, MapPin, TrainFront } from 'lucide-react'
 import ActivityBlock from '@/components/itinerary/ActivityBlock'
 import ImageWithFallback from '@/components/itinerary/ImageWithFallback'
 
-function DaySection({ day, index, rsvp }) {
+function DaySection({ day, index, rsvp, comments }) {
   return (
     <section className="day-section bg-[#080a0f]">
       <div className="relative min-h-screen overflow-hidden px-4 pb-12 pt-20 sm:px-6 sm:pb-14 sm:pt-24 lg:px-8">
@@ -51,7 +51,12 @@ function DaySection({ day, index, rsvp }) {
 
           <div className="itinerary-grid grid gap-5 lg:grid-cols-3">
             {day.sections.map((section) => (
-              <ActivityBlock key={section.id} section={section} rsvp={rsvp} />
+              <ActivityBlock
+                key={section.id}
+                section={section}
+                rsvp={rsvp}
+                comments={comments}
+              />
             ))}
           </div>
         </div>

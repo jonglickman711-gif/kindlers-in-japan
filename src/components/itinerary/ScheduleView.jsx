@@ -1,8 +1,9 @@
 import { CalendarDays, Users } from 'lucide-react'
+import ActivityComments from '@/components/itinerary/ActivityComments'
 import { allActivities, travelers, tripDays } from '@/data/itinerary'
 import { cn } from '@/lib/utils'
 
-function ScheduleView({ selectedTraveler, onSelectTraveler, rsvp }) {
+function ScheduleView({ selectedTraveler, onSelectTraveler, rsvp, comments }) {
   const filteredActivities =
     selectedTraveler === 'all'
       ? allActivities
@@ -80,7 +81,7 @@ function ScheduleView({ selectedTraveler, onSelectTraveler, rsvp }) {
                   return (
                     <article
                       key={activity.id}
-                      className="grid gap-4 border-b border-white/10 p-4 transition duration-300 last:border-b-0 hover:bg-white/[0.045] md:grid-cols-[8rem_1fr_8rem]"
+                      className="grid gap-4 border-b border-white/10 p-4 transition duration-300 last:border-b-0 hover:bg-white/[0.045] lg:grid-cols-[8rem_1fr_8rem]"
                     >
                       <div>
                         <div className="inline-flex items-center gap-2 rounded-full border border-white/10 bg-white/[0.06] px-3 py-1 text-xs uppercase text-white/52">
@@ -89,12 +90,17 @@ function ScheduleView({ selectedTraveler, onSelectTraveler, rsvp }) {
                         </div>
                       </div>
                       <div>
-                        <h3 className="font-serif text-2xl font-semibold leading-tight text-white">
-                          {activity.title}
-                        </h3>
+                        <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+                          <h3 className="font-serif text-2xl font-semibold leading-tight text-white">
+                            {activity.title}
+                          </h3>
+                          <div className="shrink-0">
+                            <ActivityComments activity={activity} comments={comments} />
+                          </div>
+                        </div>
                         <p className="mt-2 text-sm leading-6 text-white/64">{activity.details}</p>
                       </div>
-                      <div className="flex items-start gap-2 text-sm text-white/70 md:justify-end">
+                      <div className="flex items-start gap-2 text-sm text-white/70 lg:justify-end">
                         <Users className="mt-0.5 size-4 text-amber-100/70" />
                         <span>{going.length}/9 going</span>
                       </div>

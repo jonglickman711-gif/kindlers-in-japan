@@ -149,7 +149,7 @@ export function useRsvps() {
           return next
         })
 
-        if (mode !== 'supabase' || !supabase) {
+        if (mode === 'local' || !supabase) {
           console.info('[RSVP] Toggle stored locally only.', {
             activityId,
             travelerId,

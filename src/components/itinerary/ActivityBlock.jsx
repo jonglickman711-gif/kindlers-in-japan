@@ -1,9 +1,10 @@
 import { motion } from 'framer-motion'
+import ActivityComments from '@/components/itinerary/ActivityComments'
 import ImageWithFallback from '@/components/itinerary/ImageWithFallback'
 import RsvpBubbles from '@/components/itinerary/RsvpBubbles'
 import { cn } from '@/lib/utils'
 
-function ActivityOption({ option, section, exclusiveOptionIds, rsvp }) {
+function ActivityOption({ option, section, exclusiveOptionIds, rsvp, comments }) {
   return (
     <div className="option-row group overflow-hidden border border-white/10 bg-white/[0.055] transition duration-500 hover:border-amber-100/24 hover:bg-white/[0.075] hover:shadow-[0_22px_70px_rgba(0,0,0,0.22)]">
       <div className="grid">
@@ -18,9 +19,14 @@ function ActivityOption({ option, section, exclusiveOptionIds, rsvp }) {
         </div>
         <div className="flex flex-col justify-between p-5 sm:p-6">
           <div>
-            <h3 className="font-serif text-2xl font-semibold leading-tight text-white lg:text-[1.55rem]">
-              {option.title}
-            </h3>
+            <div className="flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between">
+              <h3 className="font-serif text-2xl font-semibold leading-tight text-white lg:text-[1.55rem]">
+                {option.title}
+              </h3>
+              <div className="shrink-0">
+                <ActivityComments activity={option} comments={comments} />
+              </div>
+            </div>
             <p className="mt-3 text-sm leading-6 text-white/74">{option.details}</p>
             {option.notes && (
               <p className="mt-4 border-l border-amber-200/30 pl-4 text-sm leading-6 text-amber-50/72">
@@ -41,7 +47,7 @@ function ActivityOption({ option, section, exclusiveOptionIds, rsvp }) {
   )
 }
 
-function ActivityBlock({ section, rsvp }) {
+function ActivityBlock({ section, rsvp, comments }) {
   const exclusiveOptionIds = section.options
     .filter((option) => option.rsvpMode === 'exclusiveGroup')
     .map((option) => option.id)
@@ -76,6 +82,7 @@ function ActivityBlock({ section, rsvp }) {
             section={section}
             exclusiveOptionIds={exclusiveOptionIds}
             rsvp={rsvp}
+            comments={comments}
           />
         ))}
       </div>

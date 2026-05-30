@@ -4,9 +4,18 @@ import { cn } from '@/lib/utils'
 
 const tabs = ['Home', 'Trip', 'Schedule']
 
-function AppHeader({ activeTab, onTabChange, rsvpMode }) {
+function AppHeader({ activeTab, onTabChange, rsvpMode, commentsMode }) {
   const [sways, setSways] = useState(0)
   const isShared = rsvpMode === 'supabase'
+  const isSyncing = rsvpMode === 'syncing' || commentsMode === 'syncing'
+  const commentsAreShared = commentsMode === 'supabase'
+  const statusText = isShared
+    ? commentsAreShared
+      ? 'Shared sync active'
+      : 'Shared RSVP active'
+    : isSyncing
+      ? 'Connecting shared sync'
+      : 'Local mode only'
 
   return (
     <header className="fixed inset-x-0 top-0 z-50 border-b border-white/10 bg-[#090b0f]/82 text-white shadow-[0_14px_45px_rgba(0,0,0,0.26)] backdrop-blur-xl">
@@ -43,9 +52,11 @@ function AppHeader({ activeTab, onTabChange, rsvpMode }) {
             'absolute right-4 top-[calc(100%+0.5rem)] rounded-full border px-2.5 py-1 text-[0.68rem] uppercase backdrop-blur lg:static',
             isShared
               ? 'border-emerald-200/20 bg-emerald-200/10 text-emerald-100/75'
+              : isSyncing
+                ? 'border-sky-200/18 bg-sky-200/8 text-sky-100/64'
               : 'border-amber-200/16 bg-amber-200/8 text-amber-100/62',
           )}>
-            {isShared ? 'Shared RSVP active' : 'Local mode only'}
+            {statusText}
           </span>
           <motion.button
             type="button"
