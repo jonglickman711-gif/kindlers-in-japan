@@ -19,11 +19,11 @@ function ActivityOption({ option, section, exclusiveOptionIds, rsvp, comments })
         </div>
         <div className="flex flex-col justify-between p-5 sm:p-6">
           <div>
-            <div className="grid gap-3 xl:grid-cols-[minmax(0,1fr)_auto] xl:items-start">
-              <h3 className="min-w-0 text-wrap break-words font-serif text-2xl font-semibold leading-tight text-white lg:text-[1.55rem]">
+            <div className="grid gap-3">
+              <h3 className="min-w-0 text-wrap font-serif text-[clamp(1.65rem,1.2rem+1.1vw,2rem)] font-semibold leading-[1.05] text-white">
                 {option.title}
               </h3>
-              <div className="min-w-0 xl:justify-self-end">
+              <div className="min-w-0">
                 <ActivityComments activity={option} comments={comments} />
               </div>
             </div>

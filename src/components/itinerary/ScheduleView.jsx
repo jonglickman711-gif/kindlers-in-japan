@@ -101,11 +101,11 @@ function ScheduleView({ selectedTraveler, onSelectTraveler, rsvp, comments }) {
                         </div>
                       </div>
                       <div>
-                        <div className="grid gap-3 xl:grid-cols-[minmax(0,1fr)_auto] xl:items-start">
-                          <h3 className="min-w-0 text-wrap break-words font-serif text-2xl font-semibold leading-tight text-white">
+                        <div className="grid gap-3">
+                          <h3 className="min-w-0 text-wrap font-serif text-2xl font-semibold leading-tight text-white">
                             {activity.title}
                           </h3>
-                          <div className="min-w-0 xl:justify-self-end">
+                          <div className="min-w-0">
                             <ActivityComments activity={activity} comments={comments} />
                           </div>
                         </div>
